@@ -126,6 +126,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\LineCatDb.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
