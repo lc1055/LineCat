@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LineCat.Web.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,9 @@ namespace LineCat.Web.Controllers
 {
     public class BaseController : Controller
     {
+        /// <summary>
+        /// 全局默认分页数
+        /// </summary>
         public int GlobalPageSize = 20;
 
         #region 基类做的异常处理
@@ -21,7 +25,6 @@ namespace LineCat.Web.Controllers
             if (filterContext.RequestContext.HttpContext.Request.IsAjaxRequest())
             {
                 //ajax请求的action出现的异常处理
-                //暂时还没有更好的方法把这个异常返回给前台
                 filterContext.Result = this.Json(new { success = false, msg = ex.Message, total = 0, rows = "" });//后面2个属性是为了兼容easyui-grid
             }
             else

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 
-namespace LineCat.Web
+namespace LineCat.Web.Common
 {
     public class TxtLog
     {

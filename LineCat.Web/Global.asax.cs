@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using LineCat.Web.Service;
+using LineCat.Web.Common;
 
 namespace LineCat.Web
 {
@@ -67,8 +68,8 @@ namespace LineCat.Web
 
         private void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e)
         {
-            TxtLog.WriteLine("执行定时事件");
-            Common.GetPrice();
+            //TxtLog.WriteLine("执行定时事件");
+            General.CatchPriceByAll();
         }
 
 
