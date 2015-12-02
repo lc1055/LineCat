@@ -1,4 +1,4 @@
-namespace LineCat.Web.Migrations
+ï»¿namespace LineCat.Web.Migrations
 {
     using Models;
     using System.Collections.Generic;
@@ -28,13 +28,13 @@ namespace LineCat.Web.Migrations
 
             var Malls = new List<Mall>
             {
-                new Mall() {  ID="1", Url="amazon.co.jp", Name="ÈÕ±¾ÑÇÂíÑ·" }
+                new Mall() {  ID="1", Url="amazon.co.jp", Name="æ—¥æœ¬äºšé©¬é€Š" }
             };
             Malls.ForEach(l => context.Mall.AddOrUpdate(m => m.ID, l));
 
             var MallRules = new List<MallRule>
             {
-                new MallRule() {  ID="1", MallID="1", Title="ÈÕÑÇÄ¬ÈÏ×¥È¡¹æÔò",
+                new MallRule() {  ID="1", MallID="1", Title="æ—¥äºšé»˜è®¤æŠ“å–è§„åˆ™",
                     HtmlCharset ="utf-8", RequestMethod="get",
                     TitleMatchStr ="",
                     PriceMatchStr ="<span id=\"priceblock_ourprice\" class=\"a-size-medium a-color-price\">(?<_price_>.+?)</span>",
@@ -44,7 +44,7 @@ namespace LineCat.Web.Migrations
 
             var Products = new List<Product>
             {
-                new Product() {  ID="1", MallRuleID="1", Url="http://www.amazon.co.jp/dp/B00MC6TVZ0", Title="ËÉÏÂ521Ì¨µÆ Òø"  }
+                new Product() {  ID="1", MallRuleID="1", Url="http://www.amazon.co.jp/dp/B00MC6TVZ0", Title="æ¾ä¸‹521å°ç¯ é“¶"  }
             };
             Products.ForEach(l => context.Product.AddOrUpdate(m => m.ID, l));
 

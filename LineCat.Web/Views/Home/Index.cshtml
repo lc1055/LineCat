@@ -1,8 +1,26 @@
-﻿
+﻿@model List<LineCat.Web.Models.PriceHistory>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
+<table style="width:80%; margin:0 auto;" border="1">
+    <tr>
+        <th>商品名称</th>
+        <th>价格</th>
+        <th>历史最低</th>
+        <th>采集时间</th>
+    </tr>
+    @foreach (var i in Model)
+    {
+        <tr>
+            @*<td>@i.ID</td>*@
+            <td>@i.Product.Title</td>
+            <td>@i.Price</td>
+            <td>@i.IsLow</td>
+            <td>@i.CreateDate</td>
+        </tr>
+    }
+
+</table>
