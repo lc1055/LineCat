@@ -23,7 +23,7 @@
     @foreach (var i in Model)
     {
         <tr>
-            <td><a href="/@i.ID">详细</a></td>
+            <td><a href="/h/@i.Product.ID" target="_blank">详细</a></td>
             <td>@i.Product.Title</td>
             <td>@i.Price</td>
             <td>@i.IsLow</td>

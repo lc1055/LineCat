@@ -10,7 +10,7 @@ namespace LineCat.Web.Models
         public string ID { get; set; }
         public string ProductID { get; set; }
         public string Title { get; set; }
-        public double Price { get; set; }
+        public double Price { get; set; } = 0;
         public int IsLow { get; set; } = 0;
         public int OutStock { get; set; } = 0;
         public DateTime CreateDate { get; set; } = DateTime.Now;

@@ -38,7 +38,7 @@ namespace LineCat.Web.Common
         }
 
         //
-        public static void SendEmail()
+        public static void SendEmail(string title, string p1, string p2)
         {
             SmtpSection cfg = ConfigurationManager.GetSection(@"system.net/mailSettings/smtp") as SmtpSection;
             SmtpNetworkElement smtElement = cfg.Network;
@@ -58,8 +58,8 @@ namespace LineCat.Web.Common
                 email = new MailMessage(fromMail, toMail);
             }
             email.IsBodyHtml = true;
-            email.Body = "linecat提醒：您关注的商品达到了历史最低价格，请立即剁手！";
-            email.Subject = "linecat提醒：您关注的商品达到了历史最低价格，请立即剁手！";
+            email.Body = "最新价格：" + p1 + "，上次低价：" + p2;
+            email.Subject = "linecat提醒：您关注的商品【" + title + "】达到了历史最低价格，请立即剁手！";
             email.BodyEncoding = System.Text.Encoding.UTF8;
             //实例化smtp客服端对象，用来发送电子邮件      
             System.Net.Mail.SmtpClient stmp = new SmtpClient(smtElement.Host);

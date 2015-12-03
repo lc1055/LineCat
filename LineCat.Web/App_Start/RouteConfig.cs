@@ -15,7 +15,7 @@ namespace LineCat.Web
 
             routes.MapRoute(
                 name: "History",
-                url: "{id}",
+                url: "h/{id}",
                 defaults: new { controller = "Home", action = "History", id = UrlParameter.Optional }
             );
 

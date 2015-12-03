@@ -3,6 +3,7 @@ using LineCat.Web.Models;
 using LineCat.Web.Repository;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -96,27 +97,28 @@ namespace LineCat.Web.Service
                         string strPrice = PriceReplace(match.Groups["_price_"].Value);
                         price = Convert.ToDouble(strPrice);
 
-                        en.Price = price;//价格
-                        en.OutStock = 0;//库存
+                        en.Price = price;//价格赋值
+                        en.OutStock = 0;//库存赋值
 
                         PriceHistory low = db.PriceHistory.FirstOrDefault(m => m.ProductID == p.ID && m.IsLow == 1);
                         if (low != null)
                         {
                             if (en.Price <= low.Price)
                             {
-                                en.IsLow = 1;
-                                low.IsLow = 0;
-                                
+                                en.IsLow = 1;//设置当前价格为历史最低
+                                low.IsLow = 0;//重置原历史最低
+                                db.Entry(low).State = EntityState.Modified;
+
                                 if (en.Price < low.Price)
                                 {
                                     //email
-                                    Utils.SendEmail();
+                                    Utils.SendEmail(en.Title, en.Price.ToString(), low.Price.ToString());
                                 }
                             }
                         }
                         else
                         {
-                            en.IsLow = 1;
+                            en.IsLow = 1;//设置当前价格为历史最低
                         }
                     }
                 }
@@ -124,6 +126,7 @@ namespace LineCat.Web.Service
                 {
                     en.Title = "[未获取到网页源] " + en.Title;
                 }
+                
                 db.PriceHistory.Add(en);//记录数据库             
             }
             db.SaveChanges();

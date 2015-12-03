@@ -13,9 +13,10 @@ namespace LineCat.Web.Controllers
             int pageIndex = page ?? 1;
             //每页显示的条数
             int pageSize = rows ?? GlobalPageSize;
-
-            //General.CatchPriceByAll();
-            var list = db.PriceHistory.Where(m => true).OrderByDescending(m => m.CreateDate).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            
+            var list = db.PriceHistory.Where(m => true)
+                .OrderByDescending(m => m.CreateDate)
+                .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             
             
             return View(list);
@@ -28,11 +29,10 @@ namespace LineCat.Web.Controllers
             int pageIndex = page ?? 1;
             //每页显示的条数
             int pageSize = rows ?? GlobalPageSize;
-
-            //General.CatchPriceByAll();
+            
             var list = db.PriceHistory.Where(m => m.ProductID == id)
-                .OrderByDescending(m => m.CreateDate)
                 .OrderByDescending(m => m.IsLow)
+                .OrderByDescending(m => m.CreateDate)
                 .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
 
