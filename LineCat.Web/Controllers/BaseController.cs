@@ -12,7 +12,7 @@ namespace LineCat.Web.Controllers
         /// <summary>
         /// 全局默认分页数
         /// </summary>
-        public int GlobalPageSize = 20;
+        public int GlobalPageSize = 40;
 
         #region 基类做的异常处理
         protected override void OnException(ExceptionContext filterContext)

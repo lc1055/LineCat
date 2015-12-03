@@ -20,5 +20,23 @@ namespace LineCat.Web.Controllers
             
             return View(list);
         }
+
+
+        public ActionResult History(string id, int? page, int? rows)
+        {
+            //起始页
+            int pageIndex = page ?? 1;
+            //每页显示的条数
+            int pageSize = rows ?? GlobalPageSize;
+
+            //General.CatchPriceByAll();
+            var list = db.PriceHistory.Where(m => m.ProductID == id)
+                .OrderByDescending(m => m.CreateDate)
+                .OrderByDescending(m => m.IsLow)
+                .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+
+
+            return View(list);
+        }
     }
 }

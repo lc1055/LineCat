@@ -149,6 +149,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-1.11.1.min.map" />
     <Content Include="Views\Shared\Exception.cshtml" />
+    <Content Include="Views\Home\History.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

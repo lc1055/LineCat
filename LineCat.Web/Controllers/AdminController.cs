@@ -11,8 +11,6 @@ namespace LineCat.Web.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            int a = 0;
-            int b = 1 / a;
             return View();
         }
     }
