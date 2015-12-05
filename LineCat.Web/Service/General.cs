@@ -111,8 +111,10 @@ namespace LineCat.Web.Service
 
                                 if (en.Price < low.Price)
                                 {
+                                    TxtLog.WriteLine("productid：" + en.ProductID + "上次历史价格id：" + low.ID);
+                                    TxtLog.WriteLine("最新低价：" + en.Price + "，上次低价：" + low.Price);
                                     //email
-                                    Utils.SendEmail(en.Title, en.Price.ToString(), low.Price.ToString());
+                                    Utils.SendEmail(en.Title, en.Price, low.Price);
                                 }
                             }
                         }
@@ -127,9 +129,10 @@ namespace LineCat.Web.Service
                     en.Title = "[未获取到网页源] " + en.Title;
                 }
                 
-                db.PriceHistory.Add(en);//记录数据库             
-            }
-            db.SaveChanges();
+                db.PriceHistory.Add(en);//记录数据库        
+                db.SaveChanges();
+            }//循环结束
+            
             #endregion
         }
     }
