@@ -3,6 +3,26 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
 
-<h2>Index</h2>
+    $(function () {
+        $("#sub").click(function () {
+            $.ajax({
+                url: '/admin/delete',
+                type:'post',
+                success: function (d) {
+                    if (d.success == true) {
+                        alert('删除成功');
+                    }
+                    else {
+                        alert(d.msg);
+                    }
+                }
+            }
+            )
+
+        })
+    })
+</script>
+<a href="javascript:void(0)" id="sub" >清空2天前数据</a>
 
