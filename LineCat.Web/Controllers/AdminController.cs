@@ -19,8 +19,8 @@ namespace LineCat.Web.Controllers
             try
             {
                 DateTime d = DateTime.Now.AddDays(-1);
-                db.Database.ExecuteSqlCommand("delete from pricehistory where islow=0 and createdate < " + d.ToString("yyyy/MM/dd"));
-                return Json(new { success = true });
+                int r = db.Database.ExecuteSqlCommand("delete from pricehistory where islow=0 and createdate < '" + d.ToString("yyyy-MM-dd") + "'");
+                return Json(new { success = true, msg = r });
             }
             catch (Exception e)
             {

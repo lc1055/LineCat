@@ -12,7 +12,7 @@
                 type:'post',
                 success: function (d) {
                     if (d.success == true) {
-                        alert('删除成功');
+                        alert('已删除' + d.msg + '条记录');
                     }
                     else {
                         alert(d.msg);

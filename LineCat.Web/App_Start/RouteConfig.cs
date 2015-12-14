@@ -14,6 +14,12 @@ namespace LineCat.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ProductHistory",
+                url: "{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "History",
                 url: "h/{id}",
                 defaults: new { controller = "Home", action = "History", id = UrlParameter.Optional }

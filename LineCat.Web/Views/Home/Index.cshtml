@@ -14,7 +14,7 @@
 </script>
 <table style="width:80%; margin:0 auto;" border="1">
     <tr>
-        <th></th>
+        <th>&nbsp;</th>
         <th>商品名称</th>
         <th>价格</th>
         <th>历史最低</th>
@@ -22,8 +22,10 @@
     </tr>
     @foreach (var i in Model)
     {
-        <tr>
-            <td><a href="/h/@i.Product.ID" target="_blank">详细</a></td>
+        <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+            <td><a href="/@i.Product.ID" target="_blank">详细</a>
+                <a href="@i.Product.Url" target="_blank">购买链接</a>
+            </td>
             <td>@i.Product.Title</td>
             <td>@i.Price</td>
             <td>@i.IsLow</td>
