@@ -1,4 +1,4 @@
-﻿
+﻿@model LineCat.Web.Models.Product
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,7 +9,7 @@
         $("#sub").click(function () {
             $.ajax({
                 url: '/admin/delete',
-                type:'post',
+                type: 'post',
                 success: function (d) {
                     if (d.success == true) {
                         alert('已删除' + d.msg + '条记录');
@@ -18,11 +18,34 @@
                         alert(d.msg);
                     }
                 }
-            }
-            )
+            });
 
         })
     })
 </script>
+
+@ViewBag.msg
+
+<hr />
 <a href="javascript:void(0)" id="sub" >清空2天前数据</a>
 
+@using (Html.BeginForm("create", "admin"))
+{
+    <table>
+        <tr>
+            <td>url</td>
+            <td>@Html.TextBoxFor(m => m.Url)</td>
+        </tr>
+        <tr>
+            <td>标题</td>
+            <td>@Html.TextBoxFor(m => m.Title)</td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" /></td>
+        </tr>
+    </table>
+
+
+
+
+}
