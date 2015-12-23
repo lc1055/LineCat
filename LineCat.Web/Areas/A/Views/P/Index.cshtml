@@ -1,14 +1,13 @@
 ﻿@model LineCat.Web.Models.Product
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script>
 
     $(function () {
         $("#sub").click(function () {
             $.ajax({
-                url: '/admin/delete',
+                url: '/a/p/delete',
                 type: 'post',
                 success: function (d) {
                     if (d.success == true) {
@@ -27,9 +26,9 @@
 @ViewBag.msg
 
 <hr />
-<a href="javascript:void(0)" id="sub" >清空2天前数据</a>
+<a href="javascript:void(0)" id="sub">清空2天前数据</a>
 
-@using (Html.BeginForm("create", "admin"))
+@using (Html.BeginForm("create", "p")) 
 {
     <table>
         <tr>
@@ -39,6 +38,10 @@
         <tr>
             <td>标题</td>
             <td>@Html.TextBoxFor(m => m.Title)</td>
+        </tr>
+        <tr>
+            <td>提醒价格</td>
+            <td>@Html.TextBoxFor(m => m.RecommendAlertPrice)</td>
         </tr>
         <tr>
             <td colspan="2"><input type="submit" /></td>

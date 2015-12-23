@@ -1,0 +1,12 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="@Url.Content("~/scripts/jquery-1.11.1.min.js")"></script>
+    @RenderSection("header", false)
+</head>
+<body>
+    @RenderBody()
+    @RenderSection("footer", false)
+</body>
+</html>

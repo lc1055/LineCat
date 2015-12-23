@@ -17,9 +17,9 @@ namespace LineCat.Web.Models
         public string Title { get; set; }
         [Display(Name = "Url"), StringLength(200)]
         public string Url { get; set; }
-
+        public double RecommendAlertPrice { get; set; } = 0;//系统推荐的提醒价格
         public int Timer { get; set; } = 0;
-
+        
         [Display(Name = "Created Date")]
         public DateTime CreateDate { get; set; } = DateTime.Now;
         [Display(Name = "Sort Number")]

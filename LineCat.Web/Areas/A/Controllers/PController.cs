@@ -1,14 +1,14 @@
-﻿using System;
+﻿using LineCat.Web.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LineCat.Web.Controllers
+namespace LineCat.Web.Areas.A.Controllers
 {
-    public class AdminController : DBController
+    public class PController : DBController
     {
-        // GET: Admin
         public ActionResult Index()
         {
             return View();
@@ -63,7 +63,7 @@ namespace LineCat.Web.Controllers
             {
                 ViewBag.msg = e.ToString();
             }
-            
+
             return View("index");
         }
 

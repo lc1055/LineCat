@@ -33,7 +33,7 @@
 
             var Products = new List<Product>
             {
-                new Product() {  ID="1", MallRuleID="1", Url="http://www.amazon.co.jp/dp/B00MC6TVZ0", Title="松下521台灯 银" }
+                new Product() {  ID="1", MallRuleID="1", Url="http://www.amazon.co.jp/dp/B00MC6TVZ0", Title="松下521台灯 银", RecommendAlertPrice=8000 }
             };
             Products.ForEach(p => context.Product.AddOrUpdate(m => m.ID, p));
 
