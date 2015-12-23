@@ -101,21 +101,24 @@ namespace LineCat.Web.Service
                         en.OutStock = 0;//库存赋值
 
                         PriceHistory low = db.PriceHistory.FirstOrDefault(m => m.ProductID == p.ID && m.IsLow == 1);
-                        if (low != null && en.Price <= low.Price)
+                        if (low != null)
                         {
-                            en.IsLow = 1;//设置当前价格为历史最低
-                            low.IsLow = 0;//重置原历史最低
-                            db.Entry(low).State = EntityState.Modified;
-
-                            #region 此处功能后期要单独处理，因为和userproduct有关
-                            if (en.Price < low.Price || en.Price <= p.RecommendAlertPrice)
+                            if (en.Price <= low.Price)
                             {
-                                //TxtLog.WriteLine("productid：" + en.ProductID + "上次历史价格id：" + low.ID);
-                                //TxtLog.WriteLine("最新低价：" + en.Price + "，上次低价：" + low.Price);
-                                //email
-                                Utils.SendEmail(en.Title, en.Price, low.Price);
+                                en.IsLow = 1;//设置当前价格为历史最低
+                                low.IsLow = 0;//重置原历史最低
+                                db.Entry(low).State = EntityState.Modified;
+
+                                #region 此处功能后期要单独处理，因为和userproduct有关
+                                if (en.Price < low.Price || en.Price <= p.RecommendAlertPrice)
+                                {
+                                    //TxtLog.WriteLine("productid：" + en.ProductID + "上次历史价格id：" + low.ID);
+                                    //TxtLog.WriteLine("最新低价：" + en.Price + "，上次低价：" + low.Price);
+                                    //email
+                                    Utils.SendEmail(en.Title, en.Price, low.Price);
+                                }
+                                #endregion
                             }
-                            #endregion
                         }
                         else
                         {
