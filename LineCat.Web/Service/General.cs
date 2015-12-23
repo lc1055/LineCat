@@ -108,7 +108,7 @@ namespace LineCat.Web.Service
                             db.Entry(low).State = EntityState.Modified;
 
                             #region 此处功能后期要单独处理，因为和userproduct有关
-                            if (en.Price <= low.Price || en.Price <= p.RecommendAlertPrice)
+                            if (en.Price < low.Price || en.Price <= p.RecommendAlertPrice)
                             {
                                 //TxtLog.WriteLine("productid：" + en.ProductID + "上次历史价格id：" + low.ID);
                                 //TxtLog.WriteLine("最新低价：" + en.Price + "，上次低价：" + low.Price);
