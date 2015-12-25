@@ -6,7 +6,6 @@ namespace LineCat.Web.Controllers
 {
     public class HomeController : DBController
     {
-        // GET: Home
         public ActionResult Index(string id, int? page, int? rows)
         {
             //起始页
