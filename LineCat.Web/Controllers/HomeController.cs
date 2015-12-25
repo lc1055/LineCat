@@ -15,7 +15,7 @@ namespace LineCat.Web.Controllers
             int pageSize = rows ?? GlobalPageSize;
 
             var list = db.PriceHistory.Where(m => string.IsNullOrEmpty(id) || m.ProductID == id)
-                .OrderByDescending(m => m.IsLow)
+                //.OrderByDescending(m => m.IsLow)
                 .OrderByDescending(m => m.CreateDate)
                 .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             

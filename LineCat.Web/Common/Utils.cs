@@ -42,7 +42,7 @@ namespace LineCat.Web.Common
         {
             SmtpSection cfg = ConfigurationManager.GetSection(@"system.net/mailSettings/smtp") as SmtpSection;
             SmtpNetworkElement smtElement = cfg.Network;
-            string _FromEmail = "lc1055@163.com";
+            string _FromEmail = "lc1055@126.com";
             string _ToEmail = "lc1055@163.com";
             //实例化一个邮件消息对象       
             MailMessage email;
