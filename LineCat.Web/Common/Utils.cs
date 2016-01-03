@@ -59,7 +59,8 @@ namespace LineCat.Web.Common
             }
             email.IsBodyHtml = true;
             email.Body = "最新低价：" + p1 + "，上次低价：" + p2;
-            email.Subject = "linecat提醒：您关注的商品【" + title + "】达到了历史最低价格，降价幅度：" + Math.Round((p2 - p1) / p2 * 100) + "%";
+            //email.Subject = "linecat提醒：您关注的商品【" + title + "】达到了历史最低价格，降价幅度：" + Math.Round((p2 - p1) / p2 * 100) + "%";
+            email.Subject = "《" + title + "》新低价：" + p1 + "，上次低价：" + p2 + "，降幅：" + Math.Round((p2 - p1) / p2 * 100) + "%";
             email.BodyEncoding = System.Text.Encoding.UTF8;
             //实例化smtp客服端对象，用来发送电子邮件      
             System.Net.Mail.SmtpClient stmp = new SmtpClient(smtElement.Host);

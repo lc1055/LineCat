@@ -1,12 +1,15 @@
-﻿<html>
+﻿<!doctype html>
+<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <script type="text/javascript" src="@Url.Content("~/scripts/jquery-1.11.1.min.js")"></script>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/bootstrap.min.css")"  />
     @RenderSection("header", false)
 </head>
 <body>
     @RenderBody()
     @RenderSection("footer", false)
+    <script type="text/javascript" src="@Url.Content("~/scripts/jquery-1.11.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
 </body>
 </html>

@@ -12,25 +12,60 @@
         self.location.reload();
     }
 </script>
-<table style="width:80%; margin:0 auto;" border="1">
-    <tr>
-        <th>&nbsp;</th>
-        <th>商品名称</th>
-        <th>价格</th>
-        <th>历史最低</th>
-        <th>采集时间</th>
-    </tr>
-    @foreach (var i in Model)
-    {
-        <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
-            <td><a href="/@i.Product.ID" target="_blank">详细</a>
-                <a href="@i.Product.Url" target="_blank">购买链接</a>
-            </td>
-            <td>@i.Title</td>
-            <td>@i.Price</td>
-            <td>@i.IsLow</td>
-            <td>@i.CreateDate</td>
-        </tr>
-    }
 
-</table>
+<div class="container">
+
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Line Cat</a>
+        </div>
+        <div id="navbar-menu" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="row">
+        <div class="col-md-9">
+            <table class="table">
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>商品名称</th>
+                    <th>价格</th>
+                    <th>历史最低</th>
+                    <th>采集时间</th>
+                </tr>
+                @foreach (var i in Model)
+                {
+                    <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                        <td>
+                            <a href="/@i.Product.ID" target="_blank">详细</a>
+                            <a href="@i.Product.Url" target="_blank">购买链接</a>
+                        </td>
+                        <td>@i.Title</td>
+                        <td>@i.Price</td>
+                        <td>@i.IsLow</td>
+                        <td>@i.CreateDate</td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
+        <div class="col-md-3">
+            <div class="btn btn-default"><i class="icon-user">123</i></div>
+        </div>
+
+    </div>
+    <div class="row"></div>
+</div>
+
