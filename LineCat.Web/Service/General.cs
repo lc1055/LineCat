@@ -16,6 +16,8 @@ namespace LineCat.Web.Service
     {
         public static string GetHtmlByProduct(Product en)
         {
+            HttpWebResponse resp = null;
+            StreamReader sr = null;
             try
             {
                 LineCatDb db = DbContextFactory.GetCurrentContext();
@@ -26,19 +28,19 @@ namespace LineCat.Web.Service
 
                 //generate http request
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(urlToCrawl);
-
+                
                 //use GET method to get url's html
                 req.Method = string.IsNullOrEmpty(rule.RequestMethod) ? "GET" : rule.RequestMethod;
 
                 //use request to get response
-                HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
+                resp = (HttpWebResponse)req.GetResponse();
 
                 //use songtaste's html's charset GB2312 to decode html
                 //otherwise will return messy code
                 string htmlCharset = string.IsNullOrEmpty(rule.HtmlCharset) ? "utf-8" : rule.HtmlCharset;
                 Encoding htmlEncoding = Encoding.GetEncoding(htmlCharset);
-                StreamReader sr = new StreamReader(resp.GetResponseStream(), htmlEncoding);
-
+                sr = new StreamReader(resp.GetResponseStream(), htmlEncoding);
+                
                 //read out the returned html
                 string respHtml = sr.ReadToEnd();
                 return respHtml;
@@ -48,6 +50,11 @@ namespace LineCat.Web.Service
                 //写日志
                 TxtLog.SaveErrorLog(e.ToString());
                 return "";
+            }
+            finally
+            {
+                resp.Close();
+                sr.Close();
             }
         }
 

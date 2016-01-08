@@ -44,19 +44,23 @@
                     <th>历史最低</th>
                     <th>采集时间</th>
                 </tr>
-                @foreach (var i in Model)
+                @if (Model != null)
                 {
-                    <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
-                        <td>
-                            <a href="/@i.Product.ID" target="_blank">详细</a>
-                            <a href="@i.Product.Url" target="_blank">购买链接</a>
-                        </td>
-                        <td>@i.Title</td>
-                        <td>@i.Price</td>
-                        <td>@i.IsLow</td>
-                        <td>@i.CreateDate</td>
-                    </tr>
+                    foreach (var i in Model)
+                    {
+                        <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                            <td>
+                                <a href="/@i.Product.ID" target="_blank">详细</a>
+                                <a href="@i.Product.Url" target="_blank">购买链接</a>
+                            </td>
+                            <td>@i.Title</td>
+                            <td>@i.Price</td>
+                            <td>@i.IsLow</td>
+                            <td>@i.CreateDate</td>
+                        </tr>
+                    }
                 }
+
 
             </table>
 

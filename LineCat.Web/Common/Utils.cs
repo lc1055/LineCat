@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Net.Configuration;
 using System.Net.Mail;
+using System.Net.NetworkInformation;
 using System.Web;
 
 namespace LineCat.Web.Common
@@ -35,6 +36,19 @@ namespace LineCat.Web.Common
                 ip = "没有正常获取IP，" + ep.Message;
             }
             return ip;
+        }
+
+        public static bool HostPing(string host)
+        {
+            bool b = false;
+            Ping p = new Ping();
+            PingReply replay = p.Send(host);
+            string r = replay.Status.ToString();
+            if (r.Equals("Success"))
+            {
+                b = true;
+            }
+            return b;
         }
 
         //
