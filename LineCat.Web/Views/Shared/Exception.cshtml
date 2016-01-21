@@ -1,4 +1,4 @@
-﻿
+﻿@model Exception
 @{
     ViewBag.Title = "Exception";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,4 +6,5 @@
 
 <h2>Exception</h2>
 
-@ViewBag.Msg
+@*@ViewBag.Msg*@
+@Model.ToString()

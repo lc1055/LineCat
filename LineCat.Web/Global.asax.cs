@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using LineCat.Web.Service;
 using LineCat.Web.Common;
+using LineCat.Web.Repository;
+using System.Data.Entity;
 
 namespace LineCat.Web
 {
@@ -13,6 +15,8 @@ namespace LineCat.Web
     {
         protected void Application_Start()
         {
+            using (var db = new LineCatDb()) { }
+
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
@@ -56,7 +60,7 @@ namespace LineCat.Web
 
             //这里设置你的web地址，可以随便指向你的任意一个aspx页面甚至不存在的页面，目的是要激发Application_Start
             //使用您自己的URL
-            string url = "http://localhost:1358";
+            string url = "http://localhost";
             System.Net.HttpWebRequest myHttpWebRequest = (System.Net.HttpWebRequest)System.Net.WebRequest.Create(url);
             System.Net.HttpWebResponse myHttpWebResponse = (System.Net.HttpWebResponse)myHttpWebRequest.GetResponse();
             System.IO.Stream receiveStream = myHttpWebResponse.GetResponseStream();//得到回写的字节流
