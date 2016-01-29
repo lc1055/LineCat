@@ -43,7 +43,7 @@ namespace LineCat.Web.Areas.A.Controllers
                     );
                     if (mallRule != null)
                     {
-                        en.ID = Guid.NewGuid().ToString();
+                        if (string.IsNullOrEmpty(en.ID)) { en.ID = Guid.NewGuid().ToString(); }
                         en.MallRuleID = mallRule.ID;
                         db.Product.Add(en);
                         db.SaveChanges();
