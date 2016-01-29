@@ -28,7 +28,7 @@ namespace LineCat.Web.Repository
             //防止表中的数据以复数(Students,Courses,Enrollments)命名
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //使用sqllite时，global中初始化。使用mssql时，参照自动迁移（migrations）。
+            //使用sqllite时，global中初始化。使用mssql时，自动迁移（migrations）。
             //Database.SetInitializer(new LineCatDbInitializer(modelBuilder));
         }
 
