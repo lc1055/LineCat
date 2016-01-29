@@ -8,25 +8,17 @@ namespace LineCat.Web.Controllers
     {
         public ActionResult Index(string id, string key, int? page, int? rows)
         {
-            if (Common.Utils.HostPing("121.41.57.205"))
-            {
-                //起始页
-                int pageIndex = page ?? 1;
-                //每页显示的条数
-                int pageSize = rows ?? GlobalPageSize;
+            //起始页
+            int pageIndex = page ?? 1;
+            //每页显示的条数
+            int pageSize = rows ?? GlobalPageSize;
 
-                var list = db.PriceHistory.Where(m => (string.IsNullOrEmpty(id) || m.ProductID == id)
-                    && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
-                    ).OrderByDescending(m => m.CreateDate)
-                    .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            var list = db.PriceHistory.Where(m => (string.IsNullOrEmpty(id) || m.ProductID == id)
+                && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
+                ).OrderByDescending(m => m.CreateDate)
+                .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-
-                return View(list);
-            }
-            else
-            {
-                return View();
-            }
+            return View(list);
         }
 
 
