@@ -8,8 +8,9 @@
 </head>
 <body>
     @RenderBody()
-    @RenderSection("footer", false)
+    
     <script type="text/javascript" src="@Url.Content("~/scripts/jquery-1.11.1.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/scripts/bootstrap.min.js")"></script>
+    @RenderSection("footer", false)
 </body>
 </html>

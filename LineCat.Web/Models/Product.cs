@@ -6,6 +6,9 @@ using System.Web;
 
 namespace LineCat.Web.Models
 {
+    /// <summary>
+    /// product sku
+    /// </summary>
     public class Product
     {
         [Key, Display(Name = "ID"), StringLength(50)]
@@ -15,6 +18,10 @@ namespace LineCat.Web.Models
 
         [Display(Name = "Product Name"), StringLength(200)]
         public string Title { get; set; }
+        //[Display(Name = "Brand Name"), StringLength(200)]
+        //public string BrandName { get; set; }
+
+
         [Display(Name = "Url"), StringLength(200)]
         public string Url { get; set; }
         public double RecommendAlertPrice { get; set; } = 0;//系统推荐的提醒价格

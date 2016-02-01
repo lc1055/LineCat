@@ -1,24 +1,56 @@
 ﻿@model List<LineCat.Web.Models.PriceHistory>
 @{
     ViewBag.Title = "History";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
 }
-<table style="width:80%; margin:0 auto;" border="1">
-    <tr>
-        <th>商品名称</th>
-        <th>价格</th>
-        <th>历史最低</th>
-        <th>采集时间</th>
-    </tr>
-    @foreach (var i in Model)
-    {
-        <tr>
-            <td>@i.Product.Title</td>
-            <td>@i.Price</td>
-            <td>@i.IsLow</td>
-            <td>@i.CreateDate</td>
-        </tr>
-    }
+@section header{
+    <style>
+        .panel-body {
+            padding: 0px;
+        }
+    </style>
+}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        @if (Model != null){
+                            @Model[0].Title
+                        }
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>名称</th>
+                            <th>价格</th>
+                            <th>时间</th>
+                        </tr>
+                        @if (Model != null)
+                        {
+                            foreach (var i in Model)
+                            {
+                                if (i.Title.Contains("膳魔师"))
+                                {
+                            <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
+                                <td>
+                                    <a href="@i.Product.Url" target="_blank" title="点击购买">@i.Title</a>
+                                    @if (i.IsLow == 1) { <text>(最低)</text>}
+                                </td>
+                                <td>@i.Price</td>
+                                <td>@i.CreateDate.ToString("MM/dd HH:mm")</td>
+                            </tr>
+                                }
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
 
-</table>
+
+        </div>
+        </div>
+    </div>
 

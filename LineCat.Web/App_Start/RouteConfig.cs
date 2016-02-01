@@ -19,11 +19,11 @@ namespace LineCat.Web
                 defaults: new { controller = "Admin", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
-                name: "ProductHistory",
-                url: "{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+            //routes.MapRoute(
+            //    name: "ProductHistory",
+            //    url: "{id}",
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            //);
 
             routes.MapRoute(
                 name: "History",
