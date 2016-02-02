@@ -139,6 +139,7 @@
     <Content Include="Scripts\jquery-1.11.1.js" />
     <Content Include="Scripts\jquery-1.11.1.min.js" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutFront.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -174,7 +175,6 @@
     <Content Include="Scripts\jquery-1.11.1.min.map" />
     <Content Include="Views\Shared\Exception.cshtml" />
     <Content Include="Views\Home\History.cshtml" />
-    <Content Include="Views\Shared\_LayoutFront.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
