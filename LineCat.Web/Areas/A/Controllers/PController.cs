@@ -9,9 +9,10 @@ namespace LineCat.Web.Areas.A.Controllers
 {
     public class PController : DBController
     {
-        public ActionResult Index()
+        public ActionResult Index(string id)
         {
-            return View();
+            var p = db.Product.FirstOrDefault(m => m.ID == id);
+            return View(p);
         }
 
         public ActionResult Delete()
@@ -43,8 +44,11 @@ namespace LineCat.Web.Areas.A.Controllers
                     );
                     if (mallRule != null)
                     {
-                        if (string.IsNullOrEmpty(en.ID)) { en.ID = Guid.NewGuid().ToString(); }
-                        en.MallRuleID = mallRule.ID;
+                        en.MallRuleID = mallRule.ID;                 
+                        if (string.IsNullOrEmpty(en.ID))
+                        {
+                            en.ID = Guid.NewGuid().ToString(); 
+                        }
                         db.Product.Add(en);
                         db.SaveChanges();
                         ViewBag.msg = "created success";
@@ -57,6 +61,41 @@ namespace LineCat.Web.Areas.A.Controllers
                 else
                 {
                     ViewBag.msg = "url exisit";
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.msg = e.ToString();
+            }
+
+            return View("index");
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Models.Product en)
+        {
+            ViewBag.msg = "";
+            try
+            {
+                if (!string.IsNullOrEmpty(en.ID))
+                {
+                    var product = db.Product.FirstOrDefault(m => m.ID == en.ID);
+                    if (product != null)
+                    {
+                        product.Url = en.Url;
+                        product.RecommendAlertPrice = en.RecommendAlertPrice;
+                        product.Title = en.Title;
+                        db.SaveChanges();
+                        ViewBag.msg = "edit success";
+                    }
+                    else
+                    {
+                        ViewBag.msg = "product not exisit";
+                    }
+                }
+                else
+                {
+                    ViewBag.msg = "product not exisit";
                 }
             }
             catch (Exception e)

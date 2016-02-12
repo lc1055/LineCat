@@ -14,10 +14,16 @@ namespace LineCat.Web.Areas.A
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+            //context.MapRoute(
+            //    "A_product",
+            //    "a/p/{id}",
+            //    new { controller = "p", action = "Index", id = UrlParameter.Optional }
+            //);
+
             context.MapRoute(
                 "A_default",
-                "A/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "a/{controller}/{action}/{id}",
+                new { action = "index", id = UrlParameter.Optional }
             );
         }
     }

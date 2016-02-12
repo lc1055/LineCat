@@ -41,14 +41,14 @@
                                 {
                                 <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
                                     <td>
-                                        <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">@i.Title</a>
+                                        <a href="@i.Product.Url" target="_blank">@i.Title</a>
                                         @i.CreateDate.ToString("MM/dd HH:mm")
                                         @if (i.IsLow == 1)
                                         { <text>(最低)</text>}
                                     </td>
                                     <td>@i.Price</td>
                                     <td>
-                                        <a href="@i.Product.Url" target="_blank">买</a>
+                                        <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">史</a>
                                     </td>
                                 </tr>
                                 }
@@ -80,14 +80,14 @@
                                 {
                                     <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
                                         <td>
-                                            <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">@i.Title</a>
+                                            <a href="@i.Product.Url" target="_blank">@i.Title</a>
                                             @i.CreateDate.ToString("MM/dd HH:mm")
                                             @if (i.IsLow == 1)
                                             { <text>(最低)</text>}
                                         </td>
                                         <td>@i.Price</td>
                                         <td>
-                                            <a href="@i.Product.Url" target="_blank">买</a>
+                                            <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">史</a>
                                         </td>
                                     </tr>
                                 }
@@ -117,14 +117,14 @@
                                 {
                                     <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
                                         <td>
-                                            <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">@i.Title</a>
+                                            <a href="@i.Product.Url" target="_blank">@i.Title</a>
                                             @i.CreateDate.ToString("MM/dd HH:mm")
                                             @if (i.IsLow == 1)
                                             { <text>(最低)</text>}
                                         </td>
                                         <td>@i.Price</td>
                                         <td>
-                                            <a href="@i.Product.Url" target="_blank">买</a>
+                                            <a href="/h/@i.Product.ID" target="_blank" title="点击查看本商品历史价格">史</a>
                                         </td>
                                     </tr>
                                 }

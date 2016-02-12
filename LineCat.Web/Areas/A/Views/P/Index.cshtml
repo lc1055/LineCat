@@ -1,6 +1,8 @@
 ﻿@model LineCat.Web.Models.Product
 @{
     ViewBag.Title = "Index";
+    string action = "create";
+    if (Model != null) { action = "edit"; }
 }
 <script>
 
@@ -28,7 +30,7 @@
 <hr />
 <a href="javascript:void(0)" id="sub">清空2天前数据</a>
 
-@using (Html.BeginForm("create", "p")) 
+@using (Html.BeginForm(action, "p")) 
 {
     <table>
         <tr>

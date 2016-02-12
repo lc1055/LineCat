@@ -17,7 +17,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         @if (Model != null){
-                            @Model[0].Title
+                            <a href="/a/p/index/@Model[0].ProductID" target="_blank">@Model[0].Title</a>
                         }
                     </h3>
                 </div>
@@ -32,17 +32,16 @@
                         {
                             foreach (var i in Model)
                             {
-                                if (i.Title.Contains("膳魔师"))
-                                {
                             <tr onmouseover="this.style.background='#f0f0f0'" onmouseout="this.style.background='none'">
                                 <td>
                                     <a href="@i.Product.Url" target="_blank" title="点击购买">@i.Title</a>
-                                    @if (i.IsLow == 1) { <text>(最低)</text>}
+                                    @if (i.IsLow == 1)
+                                    { <text>(最低)</text>}
                                 </td>
                                 <td>@i.Price</td>
                                 <td>@i.CreateDate.ToString("MM/dd HH:mm")</td>
                             </tr>
-                                }
+
                             }
                         }
                     </table>
