@@ -159,6 +159,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\CategoryX.cs" />
     <Compile Include="Models\Mall.cs" />
     <Compile Include="Models\PriceHistory.cs" />
     <Compile Include="Models\Product.cs" />

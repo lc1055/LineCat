@@ -18,9 +18,8 @@ namespace LineCat.Web.Models
 
         [Display(Name = "Product Name"), StringLength(200)]
         public string Title { get; set; }
-        //[Display(Name = "Brand Name"), StringLength(200)]
-        //public string BrandName { get; set; }
-
+        [Display(Name = "Brand ID"), StringLength(200)]
+        public string BrandID { get; set; }
 
         [Display(Name = "Url"), StringLength(200)]
         public string Url { get; set; }
@@ -35,5 +34,7 @@ namespace LineCat.Web.Models
         public int Disable { get; set; } = 0;
 
         public virtual MallRule MallRule { get; set; }
+        public virtual Brand Brand { get; set; }
+        public virtual ICollection<Category> Categories { get; set; }
     }
 }
