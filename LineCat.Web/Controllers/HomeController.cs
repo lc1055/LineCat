@@ -9,17 +9,18 @@ namespace LineCat.Web.Controllers
     {
         public ActionResult Index(string id, string key, int? page, int? rows)
         {
-            //起始页
-            int pageIndex = page ?? 1;
-            //每页显示的条数
-            int pageSize = rows ?? GlobalPageSize;
+            ////起始页
+            //int pageIndex = page ?? 1;
+            ////每页显示的条数
+            //int pageSize = rows ?? GlobalPageSize;
 
-            var list = db.PriceHistory.Where(m => (string.IsNullOrEmpty(id) || m.ProductID == id)
-                && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
-                ).OrderByDescending(m => m.CreateDate)
-                .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            //var list = db.PriceHistory.Where(m => (string.IsNullOrEmpty(id) || m.ProductID == id)
+            //    && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
+            //    ).OrderByDescending(m => m.CreateDate)
+            //    .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-            return View(list);
+            //return View(list);
+            return View();
         }
 
         public ActionResult GetProducts(string brandId, string key)
@@ -48,7 +49,7 @@ namespace LineCat.Web.Controllers
                     Url = p.Url,
                     BrandID = p.BrandID,
                     CreateDate = p.CreateDate
-                });
+                }).ToList();
             foreach(var i in list)
             {
                 var history = db.PriceHistory.OrderByDescending(h => h.CreateDate).FirstOrDefault(h => h.ProductID == i.ID);
@@ -60,7 +61,7 @@ namespace LineCat.Web.Controllers
 
             }
             
-            return Json(list.ToList());
+            return Json(list);
         }
         public class LatestPrice
         {
