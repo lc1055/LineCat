@@ -36,7 +36,7 @@ namespace LineCat.Web.Controllers
             //        Title = p.Title,
             //        Url = p.Url,
             //        BrandID = p.BrandID,
-            //        CreateDate = p.CreateDate,
+            //        CreateDate = db.PriceHistory.FirstOrDefault(h => h.ProductID == p.ID).CreateDate,
             //    }).ToList();
 
             //使用sqlite
@@ -47,8 +47,7 @@ namespace LineCat.Web.Controllers
                     ID = p.ID,
                     Title = p.Title,
                     Url = p.Url,
-                    BrandID = p.BrandID,
-                    CreateDate = p.CreateDate
+                    BrandID = p.BrandID
                 }).ToList();
             foreach(var i in list)
             {
@@ -57,6 +56,7 @@ namespace LineCat.Web.Controllers
                 {
                     i.Price = history.Price;
                     i.IsLow = history.IsLow;
+                    i.CreateDate = history.CreateDate;
                 }
 
             }
