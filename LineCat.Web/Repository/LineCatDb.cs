@@ -13,7 +13,6 @@ namespace LineCat.Web.Repository
 
     public class LineCatDb : DbContext
     {
-        //public LineCatDb() : base("HuoxingPlatform") { }
         public LineCatDb() : base("LineCat") { }
         
         public DbSet<Mall> Mall { get; set; }

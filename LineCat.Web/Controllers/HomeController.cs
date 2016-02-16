@@ -1,6 +1,7 @@
 ﻿using LineCat.Web.Service;
 using System.Linq;
 using System.Web.Mvc;
+using System;
 
 namespace LineCat.Web.Controllers
 {
@@ -21,20 +22,56 @@ namespace LineCat.Web.Controllers
             return View(list);
         }
 
-        public ActionResult GetProducts(string brandId, string key, int? page, int? rows)
+        public ActionResult GetProducts(string brandId, string key)
         {
-            //起始页
-            int pageIndex = page ?? 1;
-            //每页显示的条数
-            int pageSize = rows ?? GlobalPageSize;
+            //使用sqlserver
+            //var list = db.Product.Where(m => (string.IsNullOrEmpty(brandId) || m.BrandID == brandId)
+            //    && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
+            //    ).OrderByDescending(m => m.SortNum).Select(p => new LatestPrice
+            //    {
+            //        Price = db.PriceHistory.FirstOrDefault(h => h.ProductID == p.ID).Price,
+            //        IsLow = db.PriceHistory.FirstOrDefault(h => h.ProductID == p.ID).IsLow,
+            //        ID = p.ID,
+            //        Title = p.Title,
+            //        Url = p.Url,
+            //        BrandID = p.BrandID,
+            //        CreateDate = p.CreateDate,
+            //    }).ToList();
 
-            var list = db.PriceHistory.Where(m => (string.IsNullOrEmpty(brandId) || m.Product.BrandID == brandId)
+            //使用sqlite
+            var list = db.Product.Where(m => (string.IsNullOrEmpty(brandId) || m.BrandID == brandId)
                 && (string.IsNullOrEmpty(key) || m.Title.Contains(key))
-                ).OrderByDescending(m => m.CreateDate)
-                .Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-            return Json(list);
-        }
+                ).OrderByDescending(m => m.SortNum).Select(p => new LatestPrice
+                {
+                    ID = p.ID,
+                    Title = p.Title,
+                    Url = p.Url,
+                    BrandID = p.BrandID,
+                    CreateDate = p.CreateDate
+                });
+            foreach(var i in list)
+            {
+                var history = db.PriceHistory.OrderByDescending(h => h.CreateDate).FirstOrDefault(h => h.ProductID == i.ID);
+                if (history != null)
+                {
+                    i.Price = history.Price;
+                    i.IsLow = history.IsLow;
+                }
 
+            }
+            
+            return Json(list.ToList());
+        }
+        public class LatestPrice
+        {
+            public string ID { get; set; }
+            public string Title { get; set; }
+            public string Url { get; set; }
+            public string BrandID { get; set; }
+            public double Price { get; set; }
+            public int IsLow { get; set; }
+            public DateTime CreateDate { get; set; }
+        }
 
         public ActionResult History(string id, int? page, int? rows)
         {
