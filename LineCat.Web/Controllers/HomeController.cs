@@ -100,23 +100,36 @@ namespace LineCat.Web.Controllers
         public ActionResult CatchSource(string Url)
         {
             string msg = "";
+            string reg = "";
             double price = 0;
             string html = General.GetHtmlByUrl(Url);
             string str_regex= @"<span\s+class=""h_price""\s+id=""ECS_SHOPPRICE"">(?<_price_>.+?)</span>";
+            string str_regex1 = @"<span id=""priceblock_ourprice"" class=""a-size-medium a-color-price"">(?<_price_>.+?)</span>";
             Match match = (new Regex(str_regex)).Match(html);
             if (match.Success)
             {
                 string strPrice = General.PriceReplace(match.Groups["_price_"].Value);
                 price = Convert.ToDouble(strPrice);
+                reg = str_regex;
             }
             else
             {
-                msg = "[未匹配到价格]";
+                match= (new Regex(str_regex1)).Match(html);
+                if (match.Success)
+                {
+                    string strPrice = General.PriceReplace(match.Groups["_price_"].Value);
+                    price = Convert.ToDouble(strPrice);
+                    reg = str_regex1;
+                }
+                else
+                {
+                    msg = "[未匹配到价格]";
+                }
             }
 
             ViewBag.Url = Url;           
             ViewBag.Source = html;
-            ViewBag.PriceMatchStr = str_regex;
+            ViewBag.PriceMatchStr = reg;
             ViewBag.Price = price;
             ViewBag.Msg = msg;
 

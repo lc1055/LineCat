@@ -34,17 +34,8 @@ namespace LineCat.Web.Service
 
                 //use GET method to get url's html
                 req.Method = method;
-                
-                //req.Accept = "*/*";
-                //req.Connection = "keep-alive";
-                //CookieContainer cc = new CookieContainer();              
-                //req.CookieContainer = cc;
                 req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
-                //WebHeaderCollection header = new WebHeaderCollection();
-                //header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
-                //header.Add("Content-Length", "888");
 
-                //req.Headers = header;
 
                 //use request to get response
                 resp = (HttpWebResponse)req.GetResponse();
@@ -139,6 +130,8 @@ namespace LineCat.Web.Service
             {
                 if (p.Disable == 1) continue;
 
+                
+
                 MallRule rule = db.MallRule.FirstOrDefault(m => m.ID == p.MallRuleID);
 
                 PriceHistory en = new PriceHistory();
@@ -148,12 +141,18 @@ namespace LineCat.Web.Service
                 double price = 0;
 
                 string html = GetHtmlByProduct(p);
-                if (!string.IsNullOrEmpty(html))
+                if (string.IsNullOrWhiteSpace(html))
+                {
+                    en.Title = "[未获取到网页源] " + en.Title;
+                }
+                else
                 {
                     string str_regex = rule.PriceMatchStr;// @"<span\s+class=""h_price""\s+id=""ECS_SHOPPRICE"">(?<_price_>.+?)</span>";
-                    //MatchCollection mc= Regex.Matches(html, str_regex);
+                    string str_regex1 = @"<span id=""priceblock_ourprice"" class=""a-size-medium a-color-price"">(?<_price_>.+?)</span>";
+                    //MatchCollection mc = Regex.Matches(html, str_regex);
                     //foreach (Match m in mc)
                     //{
+                        
                     //}
                     Match match = (new Regex(str_regex)).Match(html);
                     if (match.Success)
@@ -167,7 +166,25 @@ namespace LineCat.Web.Service
                         //}
                         string strPrice = PriceReplace(match.Groups["_price_"].Value);
                         price = Convert.ToDouble(strPrice);
+                    }
+                    else
+                    {
+                        match = (new Regex(str_regex1)).Match(html);
+                        if (match.Success)
+                        {
+                            string strPrice = General.PriceReplace(match.Groups["_price_"].Value);
+                            price = Convert.ToDouble(strPrice);
+                        }
+                        else
+                        {
+                            en.Title = "[未匹配到价格] " + en.Title;
+                            en.Price = 0;
+                        }
+                        
+                    }
 
+                    if (price > 0 && en.Title == p.Title)
+                    {
                         en.Price = price;//价格赋值
                         en.OutStock = 0;//库存赋值
 
@@ -197,20 +214,13 @@ namespace LineCat.Web.Service
                             en.IsLow = 1;
                         }
                     }
-                    else
-                    {
-                        en.Title = "[未匹配到价格] " + en.Title;
-                    }
-                }
-                else
-                {
-                    en.Title = "[未获取到网页源] " + en.Title;
                 }
                 
                 db.PriceHistory.Add(en);//记录数据库        
                 db.SaveChanges();
             }//循环结束
-            
+
+            //db.SaveChanges();
             #endregion
         }
     }
