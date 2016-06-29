@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using System;
+using System.Text.RegularExpressions;
 
 namespace LineCat.Web.Controllers
 {
@@ -88,6 +89,38 @@ namespace LineCat.Web.Controllers
 
 
             return View(list);
+        }
+
+
+        public ActionResult Match()
+        {
+            return View();
+        }
+
+        public ActionResult CatchSource(string Url)
+        {
+            string msg = "";
+            double price = 0;
+            string html = General.GetHtmlByUrl(Url);
+            string str_regex= @"<span\s+class=""h_price""\s+id=""ECS_SHOPPRICE"">(?<_price_>.+?)</span>";
+            Match match = (new Regex(str_regex)).Match(html);
+            if (match.Success)
+            {
+                string strPrice = General.PriceReplace(match.Groups["_price_"].Value);
+                price = Convert.ToDouble(strPrice);
+            }
+            else
+            {
+                msg = "[未匹配到价格]";
+            }
+
+            ViewBag.Url = Url;           
+            ViewBag.Source = html;
+            ViewBag.PriceMatchStr = str_regex;
+            ViewBag.Price = price;
+            ViewBag.Msg = msg;
+
+            return View("match");
         }
     }
 }

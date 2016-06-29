@@ -14,6 +14,66 @@ namespace LineCat.Web.Service
 {
     public class General
     {
+        public static string GetHtmlByUrl(string url, string charset= "utf-8", string method = "GET")
+        {
+            //WebClient c = new WebClient();
+            //c.Credentials = CredentialCache.DefaultCredentials;
+            //byte[] pageData = c.DownloadData(url);
+            //string pageHtml = Encoding.UTF8.GetString(pageData);
+            //return pageHtml;
+
+            HttpWebResponse resp = null;
+            StreamReader sr = null;
+            try
+            {
+                //step1: get html from url
+                string urlToCrawl = url;
+
+                //generate http request
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(urlToCrawl);
+
+                //use GET method to get url's html
+                req.Method = method;
+                
+                //req.Accept = "*/*";
+                //req.Connection = "keep-alive";
+                //CookieContainer cc = new CookieContainer();              
+                //req.CookieContainer = cc;
+                req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
+                //WebHeaderCollection header = new WebHeaderCollection();
+                //header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36");
+                //header.Add("Content-Length", "888");
+
+                //req.Headers = header;
+
+                //use request to get response
+                resp = (HttpWebResponse)req.GetResponse();
+
+                //use songtaste's html's charset GB2312 to decode html
+                //otherwise will return messy code
+                string htmlCharset = charset;
+                Encoding htmlEncoding = Encoding.GetEncoding(htmlCharset);
+                sr = new StreamReader(resp.GetResponseStream(), htmlEncoding);
+
+                //read out the returned html
+                string respHtml = sr.ReadToEnd();
+                return respHtml;
+            }
+            catch (Exception e)
+            {
+                //写日志
+                TxtLog.SaveErrorLog(e.ToString());
+                return "";
+            }
+            finally
+            {
+                if (resp != null)
+                    resp.Close();
+                if (sr != null)
+                    sr.Close();
+            }
+        }
+
         public static string GetHtmlByProduct(Product en)
         {
             HttpWebResponse resp = null;
@@ -31,6 +91,8 @@ namespace LineCat.Web.Service
                 
                 //use GET method to get url's html
                 req.Method = string.IsNullOrEmpty(rule.RequestMethod) ? "GET" : rule.RequestMethod;
+
+                req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
 
                 //use request to get response
                 resp = (HttpWebResponse)req.GetResponse();
@@ -53,8 +115,10 @@ namespace LineCat.Web.Service
             }
             finally
             {
-                resp.Close();
-                sr.Close();
+                if (resp != null)
+                    resp.Close();
+                if (sr != null)
+                    sr.Close();
             }
         }
 
@@ -73,7 +137,7 @@ namespace LineCat.Web.Service
             #region 循环遍历规则获取价格
             foreach (Product p in productList)
             {
-                if (p.Disable == 1) break;
+                if (p.Disable == 1) continue;
 
                 MallRule rule = db.MallRule.FirstOrDefault(m => m.ID == p.MallRuleID);
 
@@ -132,6 +196,10 @@ namespace LineCat.Web.Service
                             //如果历史价格中没有最低价，则直接设置当前价格为历史最低
                             en.IsLow = 1;
                         }
+                    }
+                    else
+                    {
+                        en.Title = "[未匹配到价格] " + en.Title;
                     }
                 }
                 else

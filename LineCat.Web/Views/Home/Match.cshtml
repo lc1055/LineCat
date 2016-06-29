@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "价格抓取";
+    Layout = "~/Views/Shared/_LayoutFront.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">title</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" action="/home/catchsource">
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label">商品url</label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="Url" name="Url" placeholder="http://" value="@ViewBag.Url" />
+                            </div>
+                            <div class="col-md-1">
+                                <button class="btn btn-primary" type="submit" id="btnCatch">确定</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label">价格匹配字符</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="PriceMatchStr" name="PriceMatchStr" placeholder="" value="@ViewBag.PriceMatchStr" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label">网页源码</label>
+                            <div class="col-md-10">
+                                <textarea rows="10" class="form-control" id="" name="" placeholder="" readonly >@ViewBag.Source</textarea>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="" name="" placeholder="" value="@ViewBag.Price" />
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label for="" class="col-md-2 control-label"></label>
+                            <div class="col-md-10">
+                                @ViewBag.Msg
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section footer{
+    
+<script>
+    $(function () {
+        page.init();
+    })
+
+    var page = function () {
+
+        var init1 = function () {
+            
+        }
+
+        var catchSource = function () {
+            $.ajax({
+                url: '/home/catchsource',
+                type: 'post',
+                data: { url: $("#txtUrl").val() },
+                success: function (data) {
+                    if (data.success) {
+                        
+                    }
+                },
+                error: function (data) {
+
+                }
+            });
+        }
+
+        return {
+            init: function () {
+                init1();
+            }
+        }
+    }
+</script>
+
+    }

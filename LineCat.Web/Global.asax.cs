@@ -21,10 +21,9 @@ namespace LineCat.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             //定时任务
-            int min = 1000 * 60 * 5;
+            int min = 1000 * 60 * 10;
             System.Timers.Timer myTimer = new System.Timers.Timer(min);
             myTimer.Elapsed += new System.Timers.ElapsedEventHandler(OnTimedEvent);
-            //myTimer.Interval = 60000;
             myTimer.Enabled = true;
         }
 
